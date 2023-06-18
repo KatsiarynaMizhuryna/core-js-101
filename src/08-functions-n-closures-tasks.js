@@ -24,6 +24,7 @@
  *
  */
 function getComposition(f, g) {
+  // eslint-disable-next-line func-names
   return function (x) {
     return (f(g(x)));
   };
@@ -47,6 +48,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
+  // eslint-disable-next-line func-names
   return function (x) {
     // eslint-disable-next-line no-restricted-properties
     return Math.pow(x, exponent);
@@ -72,6 +74,7 @@ function getPolynom(...coefficients) {
     return null;
   }
 
+  // eslint-disable-next-line func-names
   return function (x) {
     let result = 0;
     // eslint-disable-next-line no-plusplus
@@ -101,6 +104,7 @@ function getPolynom(...coefficients) {
 function memoize(func) {
   let cache = null;
 
+  // eslint-disable-next-line func-names
   return function () {
     if (cache === null) {
       cache = func();
@@ -126,6 +130,7 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
+  // eslint-disable-next-line func-names
   return function () {
     let result;
     // eslint-disable-next-line no-plusplus
@@ -186,6 +191,7 @@ function logger(func, logFunc) {
  * Return the function with partial applied arguments
  *
  * @param {Function} fn
+ * @param args1
  * @return {Function}
  *
  * @example
@@ -196,6 +202,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
+  // eslint-disable-next-line func-names
   return function (...moreArgs) {
     return fn(...args1, ...moreArgs);
   };
@@ -222,6 +229,7 @@ function partialUsingArguments(fn, ...args1) {
 function getIdGeneratorFunction(startFrom) {
   let id = startFrom;
 
+  // eslint-disable-next-line func-names
   return function () {
     const currentId = id;
     // eslint-disable-next-line no-plusplus
