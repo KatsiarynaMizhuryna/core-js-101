@@ -28,8 +28,19 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(PositiveAnswer) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (PositiveAnswer === true) {
+        resolve('Hooray!!! She said "Yes"!');
+      }
+      if (PositiveAnswer === false) {
+        resolve('Oh no, she said "No".');
+      }
+
+      reject(new Error('Wrong parameter is passed! Ask her again.'));
+    }, 1000);
+  });
 }
 
 
@@ -48,8 +59,10 @@ function willYouMarryMe(/* isPositiveAnswer */) {
  *    })
  *
  */
-function processAllPromises(/* array */) {
-  throw new Error('Not implemented');
+function processAllPromises(array) {
+  return Promise.all(array)
+    .then((results) => results.map((result) => (result instanceof Error ? result.message : result)))
+    .catch((error) => Promise.reject(error));
 }
 
 /**
@@ -71,8 +84,29 @@ function processAllPromises(/* array */) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
+function getFastestPromise(array) {
+  return new Promise((resolve, reject) => {
+    const promisesLength = array.length;
+    let resolved = false;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < promisesLength; i++) {
+      array[i]
+        // eslint-disable-next-line no-loop-func
+        .then((result) => {
+          if (!resolved) {
+            resolved = true;
+            resolve(result);
+          }
+        })
+        // eslint-disable-next-line no-loop-func
+        .catch((error) => {
+          if (!resolved) {
+            resolved = true;
+            reject(error);
+          }
+        });
+    }
+  });
 }
 
 /**
@@ -93,7 +127,7 @@ function getFastestPromise(/* array */) {
  *
  */
 function chainPromises(/* array, action */) {
-  throw new Error('Not implemented');
+
 }
 
 module.exports = {
